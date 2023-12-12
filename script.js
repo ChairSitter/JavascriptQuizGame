@@ -1,4 +1,4 @@
-//Start button calls the main game function
+//Start button calls the main game function, starts it over when pressed again
     //Timer 
         //counts down from 60
         //removes 10 seconds when a question is wrong
