@@ -1,13 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="script.js" defer></script>
-    <link href="styles.css" rel="stylesheet" type="text/css" />
-    <title>JavaScript Quiz Game</title>
-</head>
-<body>
-    <h1>JavaScript Quiz Game</h1>
-</body>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@800&display=swap" rel="stylesheet">
+
+        <script src="script.js" defer></script>
+        <link href="reset.css" rel="stylesheet" type="text/css" />
+        <link href="styles.css" rel="stylesheet" type="text/css" />
+        <title>JavaScript Quiz Game</title>
+    </head>
+
+    <body>
+        <header>
+            <h1>JavaScript Quiz Game</h1>
+        </header>
+        <main>
+
+            <section id="game-space">
+                <div id="QA-div">
+                    <div id="question">This is the question</div>
+                    <div id="answerA">This is answer A</div>
+                    <div id="answerB">This is answer B</div>
+                    <div id="answerC">This is answer C</div>
+                    <div id="answerD">This is answer D</div>
+                </div>
+            </section>
+
+            <aside>
+                <div id="timer-div">
+
+                </div>
+                <p id="explanation"></p>
+                <button id="start"></button>
+            </aside>
+
+        </main>
+
+    </body>
+
 </html>

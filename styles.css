@@ -1,3 +1,38 @@
-body {
-    background-color: blue;
+* {
+    border: red solid 1px;
 }
+
+* {
+    box-sizing: border-box;
+}
+
+/*Header*/
+h1 {
+    text-transform: uppercase;
+    font-size: 4rem;
+    text-align: center;
+    border: 15px black solid;
+    font-family: 'Rethink Sans', sans-serif;
+    background-image: linear-gradient(to right, black, white, white, black);
+    padding: 15px;
+}
+
+/*Main*/
+main {
+    display: flex;
+    justify-content: space-evenly;
+    height: 400px;
+}
+
+#game-space {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#QA-div {
+    display: grid;
+    
+}
+
+
