@@ -26,3 +26,79 @@
         //Retrieves and displays any past scores
         //Displays an input field to enter player's name next to their score
         //When clicking button, adds to displayed list, then stores them
+
+//Get HTML elements, set to variables
+const startButton = document.querySelector("#start");
+
+const question = document.querySelector("#question");
+const answerA = document.querySelector("#answerA");
+const answerB = document.querySelector("#answerB");
+const answerC = document.querySelector("#answerC");
+const answerD = document.querySelector("#answerD");
+
+const timer = document.querySelector("#timer");
+
+let time = 60;
+
+const questionBank = [
+    {
+        name: "Question 1",
+        question: "What year was JavaScript invented?", 
+        A: "2015",
+        B: "1995", 
+        C: "1988", 
+        D: "1990",
+        correct: "B",
+    }, 
+    {
+        name: "Question 2",
+        question: "Which variable declaration keyword prevents reassignment of the variable?", 
+        A: "var",
+        B: "let", 
+        C: "const", 
+        D: "putnam",
+        correct: "C",
+    },
+    {
+        name: "Question 3",
+        question: "What year was JavaScript invented?", 
+        A: "2015",
+        B: "1995", 
+        C: "1988", 
+        D: "1990",
+        correct: "B",
+    },
+    {
+        name: "Question 1",
+        question: "What year was JavaScript invented?", 
+        A: "2015",
+        B: "1995", 
+        C: "1988", 
+        D: "1990",
+        correct: "B",
+    }
+]
+
+console.log(questionBank[0].B, questionBank[0].correct);
+
+const controlTimer = () => {
+    const decrementTime = () => {
+        time--;
+        timer.textContent = time; 
+        if(time === 0){
+            clearInterval(myInterval);
+        }
+    }
+    let myInterval = setInterval(decrementTime, 1000);
+
+}
+
+
+
+const game = (event) => {
+    event.preventDefault();
+    controlTimer();
+    console.log("working");
+}
+
+startButton.addEventListener('click', game);
