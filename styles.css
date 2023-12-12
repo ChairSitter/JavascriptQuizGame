@@ -62,7 +62,7 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 2.25rem;
+    font-size: 1.75rem;
 }
 
 #answerA {
@@ -84,6 +84,7 @@ main {
 .answer {
     background-color: white;
     border: 3px black solid;
+    font-size: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
