@@ -39,7 +39,9 @@ const answerD = document.querySelector("#answerD");
 const timerDiv = document.querySelector("#timer-div");
 const timer = document.querySelector("#timer");
 
-let time = 60;
+const explanation = document.querySelector("#explanation");
+
+let time = 90;
 let roundNum = 0;
 let myInterval;
 
@@ -262,7 +264,8 @@ const displayRound = () => {
 };
 
 const highScore = () => {
-
+    const newGameButton = document.createElement("button");
+    console.log(newGameButton);
 }
 
 const endGame = () => {
@@ -272,12 +275,26 @@ const endGame = () => {
         time = 0;
         timer.textContent = time;
     }
+
+    question.textContent = "";
+    answerA.textContent = "";
+    answerB.textContent = "";
+    answerC.textContent = "";
+    answerD.textContent = "";
+    answerA.removeAttribute("class");
+    answerB.removeAttribute("class");
+    answerC.removeAttribute("class");
+    answerD.removeAttribute("class");
+
     timerDiv.setAttribute("class", "timer-div-gold");
     highScore();
     document.getElementById("start").disabled = false;
 };
 
 const reset = () => {
+    time = 90;
+    timer.textContent = time;
+    timerDiv.setAttribute("class", "timer-div");
 
 }
 
