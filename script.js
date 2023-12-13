@@ -36,14 +36,30 @@ const answerB = document.querySelector("#answerB");
 const answerC = document.querySelector("#answerC");
 const answerD = document.querySelector("#answerD");
 
+const timerDiv = document.querySelector("#timer-div");
 const timer = document.querySelector("#timer");
 
 let time = 60;
 let roundNum = 0;
+let myInterval;
+
+const controlTimer = () => {
+    const decrementTime = () => {
+        time--;
+        timer.textContent = time; 
+        if(time <= 0){
+            endGame();
+        }
+        if(time <= 0){
+            clearInterval(myInterval);
+        }
+    }
+    myInterval = setInterval(decrementTime, 1000);
+};
 
 const questionBank = [
     {
-        name: "Question 1",
+        name: "Question #1",
         question: "What year was JavaScript invented?", 
         A: "2015",
         B: "1995", 
@@ -52,7 +68,7 @@ const questionBank = [
         correct: "B",
     }, 
     {
-        name: "Question 2",
+        name: "Question #2",
         question: "Which variable declaration keyword prevents reassignment of the variable?", 
         A: "var",
         B: "let", 
@@ -61,7 +77,7 @@ const questionBank = [
         correct: "C",
     },
     {
-        name: "Question 3",
+        name: "Question #3",
         question: "What method allows the developer to read a custom message in DevTools?", 
         A: "console.log()",
         B: "message.read()", 
@@ -70,7 +86,7 @@ const questionBank = [
         correct: "A",
     },
     {
-        name: "Question 4",
+        name: "Question #4",
         question: "What is the official language name of JavaScript?", 
         A: "PageScript",
         B: "Doug's cool language", 
@@ -79,7 +95,7 @@ const questionBank = [
         correct: "D",
     },
     {
-        name: "Question 5",
+        name: "Question #5",
         question: "Which three are all data types?", 
         A: "string, number, boolean",
         B: "bingo, numeric, string", 
@@ -88,7 +104,7 @@ const questionBank = [
         correct: "A",
     },
     {
-        name: "Question 6",
+        name: "Question #6",
         question: "What does JavaScript contribute to a website?", 
         A: "Content and order",
         B: "Interactivity", 
@@ -97,7 +113,7 @@ const questionBank = [
         correct: "B",
     },
     {
-        name: "Question 7",
+        name: "Question #7",
         question: "How do you write an arrow function?", 
         A: "const funName ==========> { ... }",
         B: "const funName (arrow) { ... }", 
@@ -106,16 +122,16 @@ const questionBank = [
         correct: "D",
     },
     {
-        name: "Question 8",
+        name: "Question #8",
         question: "Explain this: for(let i=0; i < array.length; i++) { ... }?", 
         A: "Set i to zero; while i is less than the length of the array, run the code; then increment i by one.",
         B: "Please allow i to be zero; point array.length at i; add two i's.", 
         C: "Set i to zero; while i is greater than the length of the array, run the code; then increment i by one.", 
         D: "Set i to zero; while i is less than the length of the array, increment i by one; then run the code.",
-        correct: "D",
+        correct: "A",
     },
     {
-        name: "Question 9",
+        name: "Question #9",
         question: "What is a method?", 
         A: "An interview technique involving answering questions with deep, rapid-fire personal questions",
         B: "A variable with no objective value", 
@@ -124,73 +140,153 @@ const questionBank = [
         correct: "C",
     },
     {
-        name: "Question 10",
+        name: "Question #10",
         question: "What is a class?", 
         A: "A material used for making windows",
         B: "A template for creating objects", 
         C: "An object used for increased site security", 
         D: "A local storage container",
-        correct: "D",
+        correct: "B",
     }
 ];
 
-const displayQuestion = () => {
-    question.textContent = `#${roundNum + 1}: ` + questionBank[roundNum].question;
-    answerA.textContent = "A: " + questionBank[roundNum].A;
-    answerB.textContent = "B: " + questionBank[roundNum].B;
-    answerC.textContent = "C: " + questionBank[roundNum].C;
-    answerD.textContent = "D: " + questionBank[roundNum].D;
-    roundNum++;
-};
 
+//runs if user choice was correct. Changes class of choice div to green, ups round number, then runs endGame function or the next displayRound function
+const correctFunc = (chosenLetter) => {
+    if(chosenLetter === "A"){
+        answerA.setAttribute("class", "correctColor");
+    } else if(chosenLetter === "B"){
+        answerB.setAttribute("class", "correctColor");
+    } else if(chosenLetter === "C"){
+        answerC.setAttribute("class", "correctColor");
+    } else if(chosenLetter === "D"){
+        answerD.setAttribute("class", "correctColor");
+    }
+    roundNum++;
+    console.log(roundNum);
+    if(time <= 0 || roundNum === 10){
+        endGame();
+    } else {
+        setTimeout(displayRound, 1200);
+    }
+}
+
+//runs if user choice was incorrect. Changes class of choice div to red and correct div to green, ups round number, then runs endGame function or the next displayRound function
+const incorrectFunc = (chosenLetter, correctLetter) => {
+    if(chosenLetter === "A"){
+        answerA.setAttribute("class", "incorrectColor");
+    } else if(chosenLetter === "B"){
+        answerB.setAttribute("class", "incorrectColor");
+    } else if(chosenLetter === "C"){
+        answerC.setAttribute("class", "incorrectColor");
+    } else if(chosenLetter === "D"){
+        answerD.setAttribute("class", "incorrectColor");
+    }
+    if(correctLetter === "A"){
+        answerA.setAttribute("class", "correctColor");
+    } else if(correctLetter === "B"){
+        answerB.setAttribute("class", "correctColor");
+    } else if(correctLetter === "C"){
+        answerC.setAttribute("class", "correctColor");
+    } else if(correctLetter === "D"){
+        answerD.setAttribute("class", "correctColor");
+    }
+    time = time - 10;
+    roundNum++;
+    console.log(roundNum);
+    if(time <= 0 || roundNum === 10){
+        endGame();
+    } else {
+        setTimeout(displayRound, 1200);
+    }
+}
+
+//4 functions- one for each possible answer choice. If clicked div matches the round's answer, run correctFunction with chosen div as parameter.
+//If clicked div does not match that round's answer, run incorrect answer function with chosen answer and correct answer as parameters
 const responseA = (event) => {
     event.preventDefault();
-    if()
+    if(questionBank[roundNum].correct === "A"){
+        correctFunc("A");
+    } else {
+        incorrectFunc("A", questionBank[roundNum].correct);
+    }
 }
 
 const responseB = (event) => {
     event.preventDefault();
-
+    if(questionBank[roundNum].correct === "B"){
+        correctFunc("B");
+    } else {
+        incorrectFunc("B", questionBank[roundNum].correct);
+    }
 }
 
 const responseC = (event) => {
     event.preventDefault();
-
+    if(questionBank[roundNum].correct === "C"){
+        correctFunc("C");
+    } else {
+        incorrectFunc("C", questionBank[roundNum].correct);
+    }
 }
 
 const responseD = (event) => {
     event.preventDefault();
-
+    if(questionBank[roundNum].correct === "D"){
+        correctFunc("D");
+    } else {
+        incorrectFunc("D", questionBank[roundNum].correct);
+    }
 }
 
+//takes user response by listening for clicks on answer divs, runs corresponding function based on which answer is picked 
 const takeResponse = () => {
     answerA.addEventListener("click", responseA);
     answerB.addEventListener("click", responseB);
     answerC.addEventListener("click", responseC);
     answerD.addEventListener("click", responseD);
+}
+
+//resets answer box classes to default class (resetting color), displays next round's question and answer content, runs takeResponse function
+const displayRound = () => {
+    answerA.setAttribute("class", "answer")
+    answerB.setAttribute("class", "answer")
+    answerC.setAttribute("class", "answer")
+    answerD.setAttribute("class", "answer")
+    question.textContent = `${questionBank[roundNum].name}: ` + questionBank[roundNum].question;
+    answerA.textContent = "A: " + questionBank[roundNum].A;
+    answerB.textContent = "B: " + questionBank[roundNum].B;
+    answerC.textContent = "C: " + questionBank[roundNum].C;
+    answerD.textContent = "D: " + questionBank[roundNum].D;
+    takeResponse();
+};
+
+const highScore = () => {
 
 }
 
-const controlTimer = () => {
-    const decrementTime = () => {
-        time--;
-        timer.textContent = time; 
-        if(time <= 0){
-            clearInterval(myInterval);
-        }
-    }
-    let myInterval = setInterval(decrementTime, 1000);
-};
-
 const endGame = () => {
-
+    console.log("The game is over")
+    clearInterval(myInterval);
+    if(time < 0){
+        time = 0;
+        timer.textContent = time;
+    }
+    timerDiv.setAttribute("class", "timer-div-gold");
+    highScore();
+    document.getElementById("start").disabled = false;
 };
 
-const game = (event) => {
+const reset = () => {
+
+}
+
+const startGame = (event) => {
     event.preventDefault();
+    document.getElementById("start").disabled = true;
+    displayRound();
     controlTimer();
-    displayQuestion();
     console.log("working");
 };
 
-startButton.addEventListener('click', game);
+startButton.addEventListener('click', startGame);
