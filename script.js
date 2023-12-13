@@ -49,7 +49,7 @@ const nameButton = document.createElement("button");
 let userName = nameInput.value;
 const displayUserName = document.createElement("p");
 
-let time = 10; //10 for testing, will be 90
+let time = 90;
 let roundNum = 0;
 let myInterval;
 
@@ -320,7 +320,7 @@ const endGame = () => {
 };
 
 const reset = () => {
-    time = 10; // 10 for testing, will be 90
+    time = 90;
     timer.textContent = time;
     timerDiv.setAttribute("class", "timer-div");
     highScoreDiv.appendChild(explanationP);
