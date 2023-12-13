@@ -99,10 +99,10 @@ const questionBank = [
     {
         name: "Question 7",
         question: "How do you write an arrow function?", 
-        A: "const functionName ==========> { ... }",
-        B: "const functionName (arrow) { ... }", 
+        A: "const funName ==========> { ... }",
+        B: "const funName (arrow) { ... }", 
         C: "const arrow = arrowFunction (arrow) { I like arrows }", 
-        D: "const functionName = () => { ... }",
+        D: "const funName = () => { ... }",
         correct: "D",
     },
     {
@@ -132,7 +132,7 @@ const questionBank = [
         D: "A local storage container",
         correct: "D",
     }
-]
+];
 
 const displayQuestion = () => {
     question.textContent = `#${roundNum + 1}: ` + questionBank[roundNum].question;
@@ -141,6 +141,34 @@ const displayQuestion = () => {
     answerC.textContent = "C: " + questionBank[roundNum].C;
     answerD.textContent = "D: " + questionBank[roundNum].D;
     roundNum++;
+};
+
+const responseA = (event) => {
+    event.preventDefault();
+    if()
+}
+
+const responseB = (event) => {
+    event.preventDefault();
+
+}
+
+const responseC = (event) => {
+    event.preventDefault();
+
+}
+
+const responseD = (event) => {
+    event.preventDefault();
+
+}
+
+const takeResponse = () => {
+    answerA.addEventListener("click", responseA);
+    answerB.addEventListener("click", responseB);
+    answerC.addEventListener("click", responseC);
+    answerD.addEventListener("click", responseD);
+
 }
 
 const controlTimer = () => {
@@ -152,17 +180,17 @@ const controlTimer = () => {
         }
     }
     let myInterval = setInterval(decrementTime, 1000);
-}
+};
 
 const endGame = () => {
 
-}
+};
 
 const game = (event) => {
     event.preventDefault();
     controlTimer();
     displayQuestion();
     console.log("working");
-}
+};
 
 startButton.addEventListener('click', game);

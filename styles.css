@@ -41,8 +41,7 @@ main {
     border: 10px black solid;
     background-color: rgb(226, 226, 226);
     width: 60%;
-    padding: 0px;
-    margin: 20px;
+    margin: 30px;
 }
 
 #QA-div {
@@ -53,7 +52,7 @@ main {
     "header header"
     "answer-A answer-B"
     "answer-C answer-D";
-    gap: 5px;
+    gap: 10px;
     padding: 5px;
 }
 
@@ -88,7 +87,8 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 40px;;
+    border-radius: 40px;
+    padding: 5px;
 }
 
 /*Aside (Main)*/
