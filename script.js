@@ -39,9 +39,17 @@ const answerD = document.querySelector("#answerD");
 const timerDiv = document.querySelector("#timer-div");
 const timer = document.querySelector("#timer");
 
-const explanation = document.querySelector("#explanation");
+const highScoreDiv = document.querySelector("#high-score");
+const explanationP = document.querySelector("#explanation");
 
-let time = 90;
+const newGameButton = document.createElement("button");
+const nameLabel = document.createElement("label");
+const nameInput = document.createElement("input");
+const nameButton = document.createElement("button");
+let userName = nameInput.value;
+const displayUserName = document.createElement("p");
+
+let time = 10; //10 for testing, will be 90
 let roundNum = 0;
 let myInterval;
 
@@ -262,11 +270,32 @@ const displayRound = () => {
     answerD.textContent = "D: " + questionBank[roundNum].D;
     takeResponse();
 };
-
-const highScore = () => {
-    const newGameButton = document.createElement("button");
-    console.log(newGameButton);
+    
+const displayHighScore = () => {
+    userName = nameInput.value
+    displayUserName.textContent = `${userName}: ${time} points`;
+    highScoreDiv.appendChild(displayUserName);
+    document.getElementById('name-input').value = "";
 }
+
+const enterHighScore = () => {
+    nameLabel.textContent = `Your final score is ${time}. Enter your name: `;
+    nameButton.textContent = "Submit";
+    nameLabel.setAttribute("for", "name-input");
+    nameInput.setAttribute("type", "text");
+    nameInput.setAttribute("id", "name-input");
+
+    explanationP.remove();
+
+    highScoreDiv.appendChild(nameLabel);
+    highScoreDiv.appendChild(nameInput);
+    highScoreDiv.appendChild(nameButton);
+
+    nameButton.addEventListener("click", displayHighScore);
+    console.log(nameInput.value);
+}
+
+
 
 const endGame = () => {
     console.log("The game is over")
@@ -275,7 +304,6 @@ const endGame = () => {
         time = 0;
         timer.textContent = time;
     }
-
     question.textContent = "";
     answerA.textContent = "";
     answerB.textContent = "";
@@ -287,15 +315,18 @@ const endGame = () => {
     answerD.removeAttribute("class");
 
     timerDiv.setAttribute("class", "timer-div-gold");
-    highScore();
+    enterHighScore();
     document.getElementById("start").disabled = false;
 };
 
 const reset = () => {
-    time = 90;
+    time = 10; // 10 for testing, will be 90
     timer.textContent = time;
     timerDiv.setAttribute("class", "timer-div");
-
+    highScoreDiv.appendChild(explanationP);
+    highScoreDiv.remove();
+    highScoreDiv.remove();
+    highScoreDiv.remove();
 }
 
 const startGame = (event) => {
