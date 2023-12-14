@@ -46,12 +46,20 @@ const newGameButton = document.createElement("button");
 const nameLabel = document.createElement("label");
 const nameInput = document.createElement("input");
 const nameButton = document.createElement("button");
-let userName = nameInput.value;
+
+nameButton.textContent = "Submit";
+nameLabel.setAttribute("for", "name-input");
+nameInput.setAttribute("type", "text");
+nameInput.setAttribute("id", "name-input");
+
+
 const displayUserName = document.createElement("p");
 
 let time = 90;
 let roundNum = 0;
 let myInterval;
+let userName;
+let userTime;
 
 const controlTimer = () => {
     const decrementTime = () => {
@@ -270,20 +278,19 @@ const displayRound = () => {
     answerD.textContent = "D: " + questionBank[roundNum].D;
     takeResponse();
 };
-    
-const displayHighScore = () => {
-    userName = nameInput.value
-    displayUserName.textContent = `${userName}: ${time} points`;
-    highScoreDiv.appendChild(displayUserName);
+
+const storeDisplayHighScore = () => {
+    localStorage.setItem("name", nameInput.value);
+    localStorage.setItem("time", time);
+    userName = localStorage.getItem("name");
+    userTime = localStorage.getItem("time");
+    displayUserName.textContent = `${userName}: ${userTime} points`;
+    highScoreDiv.appendChild(displayUserName); 
     document.getElementById('name-input').value = "";
 }
 
 const enterHighScore = () => {
     nameLabel.textContent = `Your final score is ${time}. Enter your name: `;
-    nameButton.textContent = "Submit";
-    nameLabel.setAttribute("for", "name-input");
-    nameInput.setAttribute("type", "text");
-    nameInput.setAttribute("id", "name-input");
 
     explanationP.remove();
 
@@ -291,11 +298,8 @@ const enterHighScore = () => {
     highScoreDiv.appendChild(nameInput);
     highScoreDiv.appendChild(nameButton);
 
-    nameButton.addEventListener("click", displayHighScore);
-    console.log(nameInput.value);
+    nameButton.addEventListener("click", storeDisplayHighScore);
 }
-
-
 
 const endGame = () => {
     console.log("The game is over")
@@ -316,22 +320,21 @@ const endGame = () => {
 
     timerDiv.setAttribute("class", "timer-div-gold");
     enterHighScore();
-    document.getElementById("start").disabled = false;
 };
 
-const reset = () => {
-    time = 90;
-    timer.textContent = time;
-    timerDiv.setAttribute("class", "timer-div");
-    highScoreDiv.appendChild(explanationP);
-    highScoreDiv.remove();
-    highScoreDiv.remove();
-    highScoreDiv.remove();
-}
+// const reset = () => {
+//     time = 90;
+//     timer.textContent = time;
+//     timerDiv.setAttribute("class", "timer-div");
+//     highScoreDiv.appendChild(explanationP);
+//     highScoreDiv.remove();
+//     highScoreDiv.remove();
+//     highScoreDiv.remove();
+// }
 
 const startGame = (event) => {
     event.preventDefault();
-    document.getElementById("start").disabled = true;
+    document.getElementById("start").style.display = "none";
     displayRound();
     controlTimer();
     console.log("working");
