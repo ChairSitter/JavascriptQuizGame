@@ -53,9 +53,11 @@ nameInput.setAttribute("type", "text");
 nameInput.setAttribute("id", "name-input");
 
 
+
+
 const displayUserName = document.createElement("p");
 
-let time = 90;
+let time = 30;
 let roundNum = 0;
 let myInterval;
 let userName;
@@ -211,7 +213,6 @@ const incorrectFunc = (chosenLetter, correctLetter) => {
     }
     time = time - 10;
     roundNum++;
-    console.log(roundNum);
     if(time <= 0 || roundNum === 10){
         endGame();
     } else {
@@ -278,21 +279,56 @@ const displayRound = () => {
     answerD.textContent = "D: " + questionBank[roundNum].D;
     takeResponse();
 };
+// localStorage.clear();
+
 
 const storeDisplayHighScore = () => {
-    localStorage.setItem("name", nameInput.value);
-    localStorage.setItem("time", time);
-    userName = localStorage.getItem("name");
-    userTime = localStorage.getItem("time");
-    displayUserName.textContent = `${userName}: ${userTime} points`;
+    //gets string from local storage and turns it into an array of objects
+    //if storage is clear, creates a new array
+    //pushes new name and score data object into new array
+    let storageData = localStorage.getItem("saveData");
+    if(storageData) {
+        storageData = JSON.parse(storageData);
+    } else {
+        storageData = [];
+    }
+    storageData.push({name: nameInput.value, time: time});
+
+    const compareScores = (a, b) => {
+        if(a.time > b.time){
+            return -1;
+        } 
+        if(a.time < b.time){
+            return 1;
+        }
+        return 0;
+    }
+    storageData.sort(compareScores);
+    console.log(storageData);
+
+    //makes a new string out of the array of objects, sends string to local storage
+    let stringifiedData = JSON.stringify(storageData);
+    localStorage.setItem("saveData", (stringifiedData));
+    let message = "";
+
+    let lengthLimit;
+    if(storageData.length > 5){
+        lengthLimit = 5;
+    } else {
+        lengthLimit = storageData.length;
+    }
+    for(let i = 0; i < lengthLimit; i++){ 
+        message = message + `#${i + 1}: ${storageData[i].name}- ${storageData[i].time} points `;
+    }
+
+    console.log(message);
+    displayUserName.textContent = message;
     highScoreDiv.appendChild(displayUserName); 
     document.getElementById('name-input').value = "";
 }
 
 const enterHighScore = () => {
     nameLabel.textContent = `Your final score is ${time}. Enter your name: `;
-
-    explanationP.remove();
 
     highScoreDiv.appendChild(nameLabel);
     highScoreDiv.appendChild(nameInput);
@@ -334,7 +370,7 @@ const endGame = () => {
 
 const startGame = (event) => {
     event.preventDefault();
-    document.getElementById("start").style.display = "none";
+    document.getElementById("start").style.visibility = "hidden";
     displayRound();
     controlTimer();
     console.log("working");
