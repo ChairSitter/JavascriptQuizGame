@@ -244,6 +244,12 @@ label {
     #start {
         margin-top: 10px;
     }
+    h1 {
+        font-size: 1.75rem;
+    }
+    h2 {
+        font-size: 1rem;
+    }
 }
 
 
