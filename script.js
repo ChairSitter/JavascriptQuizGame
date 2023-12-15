@@ -149,6 +149,10 @@ const controlTimer = () => {
 
 //runs if user choice was correct. Changes class of choice div to green, ups round number, then runs endGame function or the next displayRound function
 const correctFunc = (chosenLetter) => {
+    answerA.removeEventListener("click", responseA);
+    answerB.removeEventListener("click", responseB);
+    answerC.removeEventListener("click", responseC);
+    answerD.removeEventListener("click", responseD);
     if(chosenLetter === "A"){
         answerA.setAttribute("class", "correctColor");
     } else if(chosenLetter === "B"){
@@ -168,6 +172,10 @@ const correctFunc = (chosenLetter) => {
 
 //runs if user choice was incorrect. Changes class of choice div to red and correct div to green, ups round number, then runs endGame function or the next displayRound function
 const incorrectFunc = (chosenLetter, correctLetter) => {
+    answerA.removeEventListener("click", responseA);
+    answerB.removeEventListener("click", responseB);
+    answerC.removeEventListener("click", responseC);
+    answerD.removeEventListener("click", responseD);
     if(chosenLetter === "A"){
         answerA.setAttribute("class", "incorrectColor");
     } else if(chosenLetter === "B"){

@@ -43,6 +43,7 @@ main {
     background-color: rgb(226, 226, 226);
     width: 50%;
     margin: 30px;
+    border-radius: 10px;
 }
 
 #QA-div {
