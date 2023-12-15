@@ -266,7 +266,6 @@ const reset = (event) => {
     controlTimer();
 }
 
-
 // localStorage.clear();
 const storeDisplayHighScore = () => {
     //gets string from local storage and turns it into an array of objects
@@ -353,6 +352,7 @@ const endGame = () => {
     answerC.removeAttribute("class");
     answerD.removeAttribute("class");
 
+    timer.textContent = time;
     timerDiv.setAttribute("class", "timer-div-gold");
     enterHighScore();
 };
