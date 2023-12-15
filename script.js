@@ -1,33 +1,5 @@
-//Start button calls the main game function, starts it over when pressed again
-    //Timer 
-        //counts down from 60
-        //removes 10 seconds when a question is wrong
-    //Questions and answers
-        //Made from objects and stored in an array of objects
-        //Object has question name, 4 answers, and a correctAnswer variable storing which one has to be selected
-    //Display round function displays a new random question and answer each round
-    //Answer divs have click listeners. If correct question is clicked it runs "correct" function
-
-    //Correct function
-        //Correct answer is briefly highlighted green
-        //next question is run using Display round function
-        //Displays "Correct" somewhere on the screen
-
-    //Incorrect function
-        //Removes 10 seconds from the clock
-        //Incorrect choice is briefly highlighted red, correct choice is highlighted green
-        //Displays "Incorrect" somewhere on the screen
-    
-    //End game function
-        //If timer count reaches 0, game ends
-        //If run out of questions, game ends
-
-    //High Scores function
-        //Retrieves and displays any past scores
-        //Displays an input field to enter player's name next to their score
-        //When clicking button, adds to displayed list, then stores them
-
 //Get HTML elements, set to variables
+//Initiate variables
 const startButton = document.querySelector("#start");
 const playAgain = document.createElement("button");
 playAgain.textContent = "PLAY AGAIN"
@@ -56,9 +28,6 @@ nameLabel.setAttribute("for", "name-input");
 nameInput.setAttribute("type", "text");
 nameInput.setAttribute("id", "name-input");
 
-
-
-
 const displayUserName = document.createElement("p");
 
 let time = 90;
@@ -67,20 +36,9 @@ let myInterval;
 let userName;
 let userTime;
 
-const controlTimer = () => {
-    const decrementTime = () => {
-        time--;
-        timer.textContent = time; 
-        if(time <= 0){
-            endGame();
-        }
-        if(time <= 0){
-            clearInterval(myInterval);
-        }
-    }
-    myInterval = setInterval(decrementTime, 1000);
-};
 
+
+//bank of questions 
 const questionBank = [
     {
         name: "Question #1",
@@ -174,6 +132,20 @@ const questionBank = [
     }
 ];
 
+//Create and control timer, call end game function if time reaches 0
+const controlTimer = () => {
+    const decrementTime = () => {
+        time--;
+        timer.textContent = time; 
+        if(time <= 0){
+            endGame();
+        }
+        if(time <= 0){
+            clearInterval(myInterval);
+        }
+    }
+    myInterval = setInterval(decrementTime, 1000);
+};
 
 //runs if user choice was correct. Changes class of choice div to green, ups round number, then runs endGame function or the next displayRound function
 const correctFunc = (chosenLetter) => {
@@ -187,7 +159,6 @@ const correctFunc = (chosenLetter) => {
         answerD.setAttribute("class", "correctColor");
     }
     roundNum++;
-    console.log(roundNum);
     if(time <= 0 || roundNum === 10){
         endGame();
     } else {
@@ -338,6 +309,7 @@ const storeDisplayHighScore = () => {
     }
     displayUserName.textContent = message;
     explanationP.remove();
+    document.getElementById("start").style.display = "none";
     highScoreDiv.appendChild(displayUserName); 
     document.getElementById('name-input').value = "";
     aside.appendChild(playAgain);
@@ -366,7 +338,6 @@ const enterHighScore = () => {
 }
 
 const endGame = () => {
-    console.log("The game is over")
     clearInterval(myInterval);
     if(time < 0){
         time = 0;
@@ -388,10 +359,9 @@ const endGame = () => {
 
 const startGame = (event) => {
     event.preventDefault();
-    document.getElementById("start").style.display = "none";
+    startButton.style.visibility = "hidden";
     displayRound();
     controlTimer();
-    console.log("working");
 };
 
 startButton.addEventListener('click', startGame);
