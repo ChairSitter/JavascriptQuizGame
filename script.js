@@ -29,6 +29,10 @@
 
 //Get HTML elements, set to variables
 const startButton = document.querySelector("#start");
+const playAgain = document.createElement("button");
+playAgain.textContent = "PLAY AGAIN"
+playAgain.setAttribute("id", "playAgain");
+const aside = document.querySelector("#aside");
 
 const question = document.querySelector("#question");
 const answerA = document.querySelector("#answerA");
@@ -57,7 +61,7 @@ nameInput.setAttribute("id", "name-input");
 
 const displayUserName = document.createElement("p");
 
-let time = 30;
+let time = 90;
 let roundNum = 0;
 let myInterval;
 let userName;
@@ -279,9 +283,20 @@ const displayRound = () => {
     answerD.textContent = "D: " + questionBank[roundNum].D;
     takeResponse();
 };
+
+const reset = (event) => {
+    roundNum = 0;
+    time = 90;
+    timer.textContent = time;
+    timerDiv.setAttribute("class", "timer-div");
+    highScoreDiv.style.visibility = "hidden";
+    playAgain.style.visibility = "hidden";
+    displayRound();
+    controlTimer();
+}
+
+
 // localStorage.clear();
-
-
 const storeDisplayHighScore = () => {
     //gets string from local storage and turns it into an array of objects
     //if storage is clear, creates a new array
@@ -294,6 +309,7 @@ const storeDisplayHighScore = () => {
     }
     storageData.push({name: nameInput.value, time: time});
 
+    //sorts data objects by the value of the time variable, to make a high score list
     const compareScores = (a, b) => {
         if(a.time > b.time){
             return -1;
@@ -304,13 +320,13 @@ const storeDisplayHighScore = () => {
         return 0;
     }
     storageData.sort(compareScores);
-    console.log(storageData);
 
     //makes a new string out of the array of objects, sends string to local storage
     let stringifiedData = JSON.stringify(storageData);
     localStorage.setItem("saveData", (stringifiedData));
     let message = "";
 
+    //Displays list of 5 highest scores on the page
     let lengthLimit;
     if(storageData.length > 5){
         lengthLimit = 5;
@@ -320,11 +336,17 @@ const storeDisplayHighScore = () => {
     for(let i = 0; i < lengthLimit; i++){ 
         message = message + `#${i + 1}: ${storageData[i].name}- ${storageData[i].time} points `;
     }
-
-    console.log(message);
     displayUserName.textContent = message;
+    explanationP.remove();
     highScoreDiv.appendChild(displayUserName); 
     document.getElementById('name-input').value = "";
+    aside.appendChild(playAgain);
+
+    nameLabel.style.visibility = "hidden";
+    nameInput.style.visibility = "hidden";
+    nameButton.style.visibility = "hidden";
+
+    playAgain.addEventListener("click", reset);
 }
 
 const enterHighScore = () => {
@@ -333,6 +355,12 @@ const enterHighScore = () => {
     highScoreDiv.appendChild(nameLabel);
     highScoreDiv.appendChild(nameInput);
     highScoreDiv.appendChild(nameButton);
+
+    nameLabel.style.visibility = "visible";
+    nameInput.style.visibility = "visible";
+    nameButton.style.visibility = "visible";
+    highScoreDiv.style.visibility = "visible";
+    playAgain.style.visibility = "visible";
 
     nameButton.addEventListener("click", storeDisplayHighScore);
 }
@@ -358,19 +386,9 @@ const endGame = () => {
     enterHighScore();
 };
 
-// const reset = () => {
-//     time = 90;
-//     timer.textContent = time;
-//     timerDiv.setAttribute("class", "timer-div");
-//     highScoreDiv.appendChild(explanationP);
-//     highScoreDiv.remove();
-//     highScoreDiv.remove();
-//     highScoreDiv.remove();
-// }
-
 const startGame = (event) => {
     event.preventDefault();
-    document.getElementById("start").style.visibility = "hidden";
+    document.getElementById("start").style.display = "none";
     displayRound();
     controlTimer();
     console.log("working");

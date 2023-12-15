@@ -180,6 +180,20 @@ aside {
     align-self: center;
 }
 
+#playAgain {
+    height: 75px;
+    width: 125px;
+    align-self: center;
+}
+
+p {
+    margin: 15px;
+}
+
+label {
+    margin: 15px;
+}
+
 /*Media queries*/
 @media only screen and (max-width: 1000px){
     main {
