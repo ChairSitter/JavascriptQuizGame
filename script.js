@@ -28,6 +28,9 @@ nameLabel.setAttribute("for", "name-input");
 nameInput.setAttribute("type", "text");
 nameInput.setAttribute("id", "name-input");
 
+const clearButton = document.createElement("button");
+clearButton.textContent = "Clear scores";
+
 const displayUserName = document.createElement("p");
 
 let time = 90;
@@ -270,8 +273,15 @@ const reset = (event) => {
     timerDiv.setAttribute("class", "timer-div");
     highScoreDiv.style.visibility = "hidden";
     playAgain.style.visibility = "hidden";
+    highScoreDiv.removeChild(clearButton);
     displayRound();
     controlTimer();
+}
+
+const clearScores = () => {
+    localStorage.clear();
+    message = "";
+    displayUserName.textContent = message;
 }
 
 // localStorage.clear();
@@ -312,12 +322,16 @@ const storeDisplayHighScore = () => {
         lengthLimit = storageData.length;
     }
     for(let i = 0; i < lengthLimit; i++){ 
-        message = message + `#${i + 1}: ${storageData[i].name}- ${storageData[i].time} points `;
+        message = message + `#${i + 1} ${storageData[i].name}: ${storageData[i].time} points`;
     }
     displayUserName.textContent = message;
     explanationP.remove();
     document.getElementById("start").style.display = "none";
     highScoreDiv.appendChild(displayUserName); 
+
+    highScoreDiv.appendChild(clearButton);
+    clearButton.addEventListener("click", clearScores);
+
     document.getElementById('name-input').value = "";
     aside.appendChild(playAgain);
 
