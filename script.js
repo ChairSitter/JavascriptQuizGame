@@ -322,7 +322,7 @@ const storeDisplayHighScore = () => {
         lengthLimit = storageData.length;
     }
     for(let i = 0; i < lengthLimit; i++){ 
-        message = message + `#${i + 1} ${storageData[i].name}: ${storageData[i].time} points`;
+        message = message + `#${i + 1} ${storageData[i].name}: ${storageData[i].time} points `;
     }
     displayUserName.textContent = message;
     explanationP.remove();
