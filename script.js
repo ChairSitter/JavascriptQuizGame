@@ -1,5 +1,4 @@
-//Get HTML elements, set to variables
-//Initiate variables
+//Get HTML elements, set to variables, initiate variables 
 const startButton = document.querySelector("#start");
 const playAgain = document.createElement("button");
 playAgain.textContent = "PLAY AGAIN"
@@ -39,9 +38,7 @@ let myInterval;
 let userName;
 let userTime;
 
-
-
-//bank of questions 
+//bank of questions (array of objects)
 const questionBank = [
     {
         name: "Question #1",
@@ -209,7 +206,6 @@ const incorrectFunc = (chosenLetter, correctLetter) => {
 //4 functions- one for each possible answer choice. If clicked div matches the round's answer, run correctFunction with chosen div as parameter.
 //If clicked div does not match that round's answer, run incorrect answer function with chosen answer and correct answer as parameters
 const responseA = (event) => {
-    event.preventDefault();
     if(questionBank[roundNum].correct === "A"){
         correctFunc("A");
     } else {
@@ -218,7 +214,6 @@ const responseA = (event) => {
 }
 
 const responseB = (event) => {
-    event.preventDefault();
     if(questionBank[roundNum].correct === "B"){
         correctFunc("B");
     } else {
@@ -227,7 +222,6 @@ const responseB = (event) => {
 }
 
 const responseC = (event) => {
-    event.preventDefault();
     if(questionBank[roundNum].correct === "C"){
         correctFunc("C");
     } else {
@@ -236,7 +230,6 @@ const responseC = (event) => {
 }
 
 const responseD = (event) => {
-    event.preventDefault();
     if(questionBank[roundNum].correct === "D"){
         correctFunc("D");
     } else {
