@@ -343,7 +343,7 @@ const storeDisplayHighScore = () => {
 }
 
 const enterHighScore = () => {
-    nameLabel.textContent = `Your final score is ${time}. Enter your name: `;
+    nameLabel.textContent = `Your final score is ${time}. Enter your name/initials: `;
 
     highScoreDiv.appendChild(nameLabel);
     highScoreDiv.appendChild(nameInput);
