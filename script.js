@@ -162,7 +162,7 @@ const correctFunc = (chosenLetter) => {
     }
     roundNum++;
     if (time <= 0 || roundNum === 10) {
-        endGame();
+        setTimeout(endGame, 1200);
     } else {
         setTimeout(displayRound, 1200);
     }
@@ -196,7 +196,7 @@ const incorrectFunc = (chosenLetter, correctLetter) => {
     time = time - 10;
     roundNum++;
     if (time <= 0 || roundNum === 10) {
-        endGame();
+        setTimeout(endGame, 1200);
     } else {
         setTimeout(displayRound, 1200);
     }
