@@ -1,7 +1,7 @@
-//Get HTML elements, set to variables, initiate variables 
+//Get HTML elements, create HTML elements, set to variables, initiate variables 
 const startButton = document.querySelector("#start");
 const playAgain = document.createElement("button");
-playAgain.textContent = "PLAY AGAIN"
+playAgain.textContent = "PLAY AGAIN";
 playAgain.setAttribute("id", "playAgain");
 const aside = document.querySelector("#aside");
 
@@ -42,91 +42,91 @@ let userTime;
 const questionBank = [
     {
         name: "Question #1",
-        question: "What year was JavaScript invented?", 
+        question: "What year was JavaScript invented?",
         A: "2015",
-        B: "1995", 
-        C: "1988", 
+        B: "1995",
+        C: "1988",
         D: "1990",
         correct: "B",
-    }, 
+    },
     {
         name: "Question #2",
-        question: "Which variable declaration keyword prevents reassignment of the variable?", 
+        question: "Which variable declaration keyword prevents reassignment of the variable?",
         A: "var",
-        B: "let", 
-        C: "const", 
+        B: "let",
+        C: "const",
         D: "putnam",
         correct: "C",
     },
     {
         name: "Question #3",
-        question: "What method allows the developer to read a custom message in DevTools?", 
+        question: "What method allows the developer to read a custom message in DevTools?",
         A: "console.log()",
-        B: "message.read()", 
-        C: "developer.text()", 
+        B: "message.read()",
+        C: "developer.text()",
         D: "script.java()",
         correct: "A",
     },
     {
         name: "Question #4",
-        question: "What is the official language name of JavaScript?", 
+        question: "What is the official language name of JavaScript?",
         A: "PageScript",
-        B: "Doug's cool language", 
-        C: "Java", 
+        B: "Doug's cool language",
+        C: "Java",
         D: "ECMAScript",
         correct: "D",
     },
     {
         name: "Question #5",
-        question: "Which three are all data types?", 
+        question: "Which three are all data types?",
         A: "string, number, boolean",
-        B: "bingo, numeric, string", 
-        C: "boonsky, numrod, strang", 
+        B: "bingo, numeric, string",
+        C: "boonsky, numrod, strang",
         D: "straang, noomber, billean",
         correct: "A",
     },
     {
         name: "Question #6",
-        question: "What does JavaScript contribute to a website?", 
+        question: "What does JavaScript contribute to a website?",
         A: "Content and order",
-        B: "Interactivity", 
-        C: "Styles and display rules", 
+        B: "Interactivity",
+        C: "Styles and display rules",
         D: "JavaScript is the lazy moocher of the web",
         correct: "B",
     },
     {
         name: "Question #7",
-        question: "How do you write an arrow function?", 
+        question: "How do you write an arrow function?",
         A: "const funName ==========> { ... }",
-        B: "const funName (arrow) { ... }", 
-        C: "const arrow = arrowFunction (arrow) { I like arrows }", 
+        B: "const funName (arrow) { ... }",
+        C: "const arrow = arrowFunction (arrow) { I like arrows }",
         D: "const funName = () => { ... }",
         correct: "D",
     },
     {
         name: "Question #8",
-        question: "Explain this: for(let i=0; i < array.length; i++) { ... }?", 
+        question: "Explain this: for(let i=0; i < array.length; i++) { ... }?",
         A: "Set i to zero; while i is less than the length of the array, run the code; then increment i by one.",
-        B: "Please allow i to be zero; point array.length at i; add two i's.", 
-        C: "Set i to zero; while i is greater than the length of the array, run the code; then increment i by one.", 
+        B: "Please allow i to be zero; point array.length at i; add two i's.",
+        C: "Set i to zero; while i is greater than the length of the array, run the code; then increment i by one.",
         D: "Set i to zero; while i is less than the length of the array, increment i by one; then run the code.",
         correct: "A",
     },
     {
         name: "Question #9",
-        question: "What is a method?", 
+        question: "What is a method?",
         A: "An interview technique involving answering questions with deep, rapid-fire personal questions",
-        B: "A variable with no objective value", 
-        C: "A function that is the value of an object's property", 
+        B: "A variable with no objective value",
+        C: "A function that is the value of an object's property",
         D: "Most of the characters from the hit TV series Breaking Bad",
         correct: "C",
     },
     {
         name: "Question #10",
-        question: "What is a class?", 
+        question: "What is a class?",
         A: "A material used for making windows",
-        B: "A template for creating objects", 
-        C: "An object used for increased site security", 
+        B: "A template for creating objects",
+        C: "An object used for increased site security",
         D: "A local storage container",
         correct: "B",
     }
@@ -136,11 +136,9 @@ const questionBank = [
 const controlTimer = () => {
     const decrementTime = () => {
         time--;
-        timer.textContent = time; 
-        if(time <= 0){
+        timer.textContent = time;
+        if (time <= 0) {
             endGame();
-        }
-        if(time <= 0){
             clearInterval(myInterval);
         }
     }
@@ -153,50 +151,51 @@ const correctFunc = (chosenLetter) => {
     answerB.removeEventListener("click", responseB);
     answerC.removeEventListener("click", responseC);
     answerD.removeEventListener("click", responseD);
-    if(chosenLetter === "A"){
+    if (chosenLetter === "A") {
         answerA.setAttribute("class", "correctColor");
-    } else if(chosenLetter === "B"){
+    } else if (chosenLetter === "B") {
         answerB.setAttribute("class", "correctColor");
-    } else if(chosenLetter === "C"){
+    } else if (chosenLetter === "C") {
         answerC.setAttribute("class", "correctColor");
-    } else if(chosenLetter === "D"){
+    } else if (chosenLetter === "D") {
         answerD.setAttribute("class", "correctColor");
     }
     roundNum++;
-    if(time <= 0 || roundNum === 10){
+    if (time <= 0 || roundNum === 10) {
         endGame();
     } else {
         setTimeout(displayRound, 1200);
     }
 }
 
-//runs if user choice was incorrect. Changes class of choice div to red and correct div to green, ups round number, then runs endGame function or the next displayRound function
+//runs if user choice was incorrect. Changes class of choice div to red and correct div to green, ups round number, 
+//decrements time by 10 for incorrect answer, then runs endGame function or the next displayRound function if game over criteria met
 const incorrectFunc = (chosenLetter, correctLetter) => {
     answerA.removeEventListener("click", responseA);
     answerB.removeEventListener("click", responseB);
     answerC.removeEventListener("click", responseC);
     answerD.removeEventListener("click", responseD);
-    if(chosenLetter === "A"){
+    if (chosenLetter === "A") {
         answerA.setAttribute("class", "incorrectColor");
-    } else if(chosenLetter === "B"){
+    } else if (chosenLetter === "B") {
         answerB.setAttribute("class", "incorrectColor");
-    } else if(chosenLetter === "C"){
+    } else if (chosenLetter === "C") {
         answerC.setAttribute("class", "incorrectColor");
-    } else if(chosenLetter === "D"){
+    } else if (chosenLetter === "D") {
         answerD.setAttribute("class", "incorrectColor");
     }
-    if(correctLetter === "A"){
+    if (correctLetter === "A") {
         answerA.setAttribute("class", "correctColor");
-    } else if(correctLetter === "B"){
+    } else if (correctLetter === "B") {
         answerB.setAttribute("class", "correctColor");
-    } else if(correctLetter === "C"){
+    } else if (correctLetter === "C") {
         answerC.setAttribute("class", "correctColor");
-    } else if(correctLetter === "D"){
+    } else if (correctLetter === "D") {
         answerD.setAttribute("class", "correctColor");
     }
     time = time - 10;
     roundNum++;
-    if(time <= 0 || roundNum === 10){
+    if (time <= 0 || roundNum === 10) {
         endGame();
     } else {
         setTimeout(displayRound, 1200);
@@ -206,7 +205,7 @@ const incorrectFunc = (chosenLetter, correctLetter) => {
 //4 functions- one for each possible answer choice. If clicked div matches the round's answer, run correctFunction with chosen div as parameter.
 //If clicked div does not match that round's answer, run incorrect answer function with chosen answer and correct answer as parameters
 const responseA = (event) => {
-    if(questionBank[roundNum].correct === "A"){
+    if (questionBank[roundNum].correct === "A") {
         correctFunc("A");
     } else {
         incorrectFunc("A", questionBank[roundNum].correct);
@@ -214,7 +213,7 @@ const responseA = (event) => {
 }
 
 const responseB = (event) => {
-    if(questionBank[roundNum].correct === "B"){
+    if (questionBank[roundNum].correct === "B") {
         correctFunc("B");
     } else {
         incorrectFunc("B", questionBank[roundNum].correct);
@@ -222,7 +221,7 @@ const responseB = (event) => {
 }
 
 const responseC = (event) => {
-    if(questionBank[roundNum].correct === "C"){
+    if (questionBank[roundNum].correct === "C") {
         correctFunc("C");
     } else {
         incorrectFunc("C", questionBank[roundNum].correct);
@@ -230,7 +229,7 @@ const responseC = (event) => {
 }
 
 const responseD = (event) => {
-    if(questionBank[roundNum].correct === "D"){
+    if (questionBank[roundNum].correct === "D") {
         correctFunc("D");
     } else {
         incorrectFunc("D", questionBank[roundNum].correct);
@@ -264,7 +263,6 @@ const reset = (event) => {
     time = 90;
     timer.textContent = time;
     timerDiv.setAttribute("class", "timer-div");
-    highScoreDiv.style.visibility = "hidden";
     playAgain.style.visibility = "hidden";
     highScoreDiv.removeChild(clearButton);
     displayRound();
@@ -283,19 +281,19 @@ const storeDisplayHighScore = () => {
     //if storage is clear, creates a new array
     //pushes new name and score data object into new array
     let storageData = localStorage.getItem("saveData");
-    if(storageData) {
+    if (storageData) {
         storageData = JSON.parse(storageData);
     } else {
         storageData = [];
     }
-    storageData.push({name: nameInput.value, time: time});
+    storageData.push({ name: nameInput.value, time: time });
 
     //sorts data objects by the value of the time variable, to make a high score list
     const compareScores = (a, b) => {
-        if(a.time > b.time){
+        if (a.time > b.time) {
             return -1;
-        } 
-        if(a.time < b.time){
+        }
+        if (a.time < b.time) {
             return 1;
         }
         return 0;
@@ -309,25 +307,26 @@ const storeDisplayHighScore = () => {
 
     //Displays list of 5 highest scores on the page
     let lengthLimit;
-    if(storageData.length > 5){
+    if (storageData.length > 5) {
         lengthLimit = 5;
     } else {
         lengthLimit = storageData.length;
     }
-    for(let i = 0; i < lengthLimit; i++){ 
+    for (let i = 0; i < lengthLimit; i++) {
         message = message + `#${i + 1} ${storageData[i].name}: ${storageData[i].time} points `;
     }
     displayUserName.textContent = message;
     explanationP.remove();
     document.getElementById("start").style.display = "none";
-    highScoreDiv.appendChild(displayUserName); 
+    highScoreDiv.appendChild(displayUserName);
 
-    highScoreDiv.appendChild(clearButton);
     clearButton.addEventListener("click", clearScores);
+    highScoreDiv.appendChild(clearButton);
 
     document.getElementById('name-input').value = "";
     aside.appendChild(playAgain);
 
+    playAgain.style.visibility = "visible";
     nameLabel.style.visibility = "hidden";
     nameInput.style.visibility = "hidden";
     nameButton.style.visibility = "hidden";
@@ -346,14 +345,13 @@ const enterHighScore = () => {
     nameInput.style.visibility = "visible";
     nameButton.style.visibility = "visible";
     highScoreDiv.style.visibility = "visible";
-    playAgain.style.visibility = "visible";
 
     nameButton.addEventListener("click", storeDisplayHighScore);
 }
 
 const endGame = () => {
     clearInterval(myInterval);
-    if(time < 0){
+    if (time < 0) {
         time = 0;
         timer.textContent = time;
     }
