@@ -2,7 +2,7 @@
 
 https://chairsitter.github.io/JavascriptQuizGame/
 
-![screenshot of JavaScript Speed Quiz website](./images/JSspeedquizScreenshot.jpg)
+![screenshot of JavaScript Speed Quiz website](./assets/images/JSspeedquizScreenshot.jpg)
 
 ## Description
 
