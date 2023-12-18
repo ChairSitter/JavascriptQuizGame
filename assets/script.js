@@ -244,7 +244,7 @@ const takeResponse = () => {
     answerD.addEventListener("click", responseD);
 }
 
-//resets answer box classes to default class (resetting color), displays next round's question and answer content, runs takeResponse function
+//resets answer box classes to default class (resetting color from red/green), displays next round's question and answer content, runs takeResponse function
 const displayRound = () => {
     answerA.setAttribute("class", "answer")
     answerB.setAttribute("class", "answer")
@@ -258,6 +258,7 @@ const displayRound = () => {
     takeResponse();
 };
 
+//resets variables to run a new game. Starts functions needed to begin a new game. 
 const reset = (event) => {
     roundNum = 0;
     time = 90;
@@ -269,13 +270,13 @@ const reset = (event) => {
     controlTimer();
 }
 
+//contains functionality to clear local storage when user clicks clear button
 const clearScores = () => {
     localStorage.clear();
     message = "";
     displayUserName.textContent = message;
 }
 
-// localStorage.clear();
 const storeDisplayHighScore = () => {
     //gets string from local storage and turns it into an array of objects
     //if storage is clear, creates a new array
@@ -288,7 +289,7 @@ const storeDisplayHighScore = () => {
     }
     storageData.push({ name: nameInput.value, time: time });
 
-    //sorts data objects by the value of the time variable, to make a high score list
+    //sorts data objects by the value of the time variable, to make an ordered high score list
     const compareScores = (a, b) => {
         if (a.time > b.time) {
             return -1;
@@ -316,6 +317,8 @@ const storeDisplayHighScore = () => {
         message = message + `#${i + 1} ${storageData[i].name}: ${storageData[i].time} points `;
     }
     displayUserName.textContent = message;
+
+    //manages addition, deletion, and visiblity of elements related to high score functionality
     explanationP.remove();
     document.getElementById("start").style.display = "none";
     highScoreDiv.appendChild(displayUserName);
@@ -331,9 +334,11 @@ const storeDisplayHighScore = () => {
     nameInput.style.visibility = "hidden";
     nameButton.style.visibility = "hidden";
 
+    //allows user to play game again by running reset function
     playAgain.addEventListener("click", reset);
 }
 
+//creates label, text input, and button, and makes these visible in subsequent playthroughs. Runs store/display high score function
 const enterHighScore = () => {
     nameLabel.textContent = `Your final score is ${time}. Enter your name/initials: `;
 
@@ -349,6 +354,8 @@ const enterHighScore = () => {
     nameButton.addEventListener("click", storeDisplayHighScore);
 }
 
+//stops clock from decrementing seconds. Ensures time does not end lower than 0. Resets classes and text of all answer divs.
+//Makes timer look like a gold medal. Runs enter high score function
 const endGame = () => {
     clearInterval(myInterval);
     if (time < 0) {
@@ -370,11 +377,12 @@ const endGame = () => {
     enterHighScore();
 };
 
+//hides "play game" button, begins timer function and display round functon to start a new game.
 const startGame = (event) => {
-    event.preventDefault();
     startButton.style.visibility = "hidden";
     displayRound();
     controlTimer();
 };
 
+//user click runs startGame function to begin a new game.
 startButton.addEventListener('click', startGame);
